@@ -1,0 +1,22 @@
+<% layout("/layouts/boilerplate.ejs") %>
+<body>
+    <h3>All Listings</h3>
+    <div class="container">
+        <div class="row">
+            <% for(let listing of allListings){ %>
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> <!-- Bootstrap grid column -->
+                    <a href="/listings/<%= listing._id %>" class="text-decoration-none">
+                        <div class="listing-card" style="width: 100%;"> <!-- Width auto-adjusts -->
+                            <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing Image" style="height: 18rem; object-fit: cover;">
+                            <div class="card-body">
+                                <p class="card-text"><b><%= listing.title %></b> <br>
+                                    &#8377;<%= listing.price.toLocaleString("en-IN") %>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>
