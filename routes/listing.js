@@ -9,8 +9,15 @@ const upload = multer({ dest: 'uploads/' });
 
 // Index Route (Show all listings)
 router.get("/", async (req, res) => {
-  const allListings = await Listing.find({});
+  try {
+    const allListings = await Listing.find({});
   res.render("listings/index.ejs", { allListings });
+  } catch (error) {
+    const allListings = await Listing.find({});
+    console.error("Error fetching listings:", error);
+    console.log({ allListings});
+  }
+  
 });
 
 // New Route (Form)
@@ -21,17 +28,19 @@ router.get("/new", isLoggedIn , (req, res) => {
 
 // Create Route (Add listing to DB)
 router.post("/", isLoggedIn, wrapAsync(async (req, res, next) => {
-  const listingData = req.body.listing;
+  const listingData = await req.body.listing;
+  console.log(listingData);
 
   // Set default image if none provided
-  if (!listingData.image || !listingData.image.url) {
-      listingData.image = {
-          filename: "default",
-          url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb"
-      };
-  }
+  // if (!listingData.image || !listingData.image.url) {
+  //     listingData.image = {
+  //         filename: "default",
+  //         url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+  //     };
+  // }
 
   const newListing = new Listing(listingData);
+  
   newListing.owner = req.user._id;
   await newListing.save();
   req.flash("success", "New listing created!");

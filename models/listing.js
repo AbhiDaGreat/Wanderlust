@@ -9,15 +9,8 @@ const listingSchema = new Schema({
     },
     description : String,
     image : {
-        filename: {
             type: String,
-          },
-          url: {
-            type: String,
-            default : "https://images.pexels.com/photos/3935333/pexels-photo-3935333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2https://www.pexels.com/photo/white-and-brown-wooden-house-near-bare-trees-under-white-sky-3935333/",
-            set : (v) => v==="" ? "https://images.pexels.com/photos/3935333/pexels-photo-3935333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" : v,
-          },
-    },
+              },
     price : Number,
     location : String,
     country : String,
