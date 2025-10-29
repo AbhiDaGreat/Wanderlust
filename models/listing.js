@@ -14,8 +14,8 @@ const listingSchema = new Schema({
           },
           url: {
             type: String,
-            default : "Photo by Curtis Adams from Pexels: https://www.pexels.com/photo/white-and-brown-wooden-house-near-bare-trees-under-white-sky-3935333/",
-            set : (v) => v==="" ? "Photo by Curtis Adams from Pexels: https://www.pexels.com/photo/white-and-brown-wooden-house-near-bare-trees-under-white-sky-3935333/" : v,
+            default : "https://images.pexels.com/photos/3935333/pexels-photo-3935333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2https://www.pexels.com/photo/white-and-brown-wooden-house-near-bare-trees-under-white-sky-3935333/",
+            set : (v) => v==="" ? "https://images.pexels.com/photos/3935333/pexels-photo-3935333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" : v,
           },
     },
     price : Number,
@@ -24,7 +24,11 @@ const listingSchema = new Schema({
     reviews : [{
       type : Schema.Types.ObjectId,
       ref : "Review"
-    }]
+    }],
+    owner : {
+      type : Schema.Types.ObjectId,
+      ref : "User"
+    }
 });
 
 listingSchema.post("findOneAndDelete", async(listing)=>{
